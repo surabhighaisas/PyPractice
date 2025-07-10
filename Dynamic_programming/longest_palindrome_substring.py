@@ -1,5 +1,6 @@
 # Find longest palindrome substring in a given string
 
+# Solution 1: Expand around center to find longest palindrome.
 # Time complexity O(n^2), space complexity O(1)
 def longestPalindrome(s: str) -> str:
         current_max = 0
@@ -32,3 +33,31 @@ def longestPalindrome(s: str) -> str:
 
 print(longestPalindrome("pqrababaxy"))
 print(longestPalindrome("aabbccbbaa"))
+
+# solution 2: Using dynamic programming
+# Time complexity O(n^2), space complexity O(n ^ 2)
+
+def longestPalindrome_dp(s: str) -> str:
+    str_len = len(s)
+    if str_len <= 1:
+        return s
+    
+    max_len = 1
+    max_str = s[0]
+    
+    store = [[False for _ in range(str_len)] for _ in range(str_len)]
+
+    for i in range(str_len):
+        store[i][i] = True
+        for j in range(i):
+            if s[j] == s[i] and (i - j <= 2 or store[j+1][i-1]):
+                store[j][i] = True
+                if i -j + 1 > max_len:
+                    max_len = i-j+1
+                    max_str = s[j:i+1]
+                    #print(max_str)
+    return max_str
+
+
+print(longestPalindrome_dp("pqrababaxy"))
+print(longestPalindrome_dp("aabbccbbaa"))
