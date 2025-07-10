@@ -1,4 +1,6 @@
 # Find longest palindrome substring in a given string
+
+# Time complexity O(n^2), space complexity O(1)
 def longestPalindrome(s: str) -> str:
         current_max = 0
         L_max = 0
