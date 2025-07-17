@@ -1,0 +1,33 @@
+# Leetcode 494. Target Sum
+
+'''
+You are given an integer array nums and an integer target.
+You want to build an expression out of nums by adding one of the symbols '+' and '-' before each integer in nums and then concatenate all the integers.
+For example, if nums = [2, 1], you can add a '+' before 2 and a '-' before 1 and concatenate them to build the expression "+2-1".
+Return the number of different expressions that you can build, which evaluates to target.
+'''
+
+class Solution:
+
+    def __init__(self):
+            self.sumways = {}
+
+    def findTargetSumWays(self, nums: list[int], target: int) -> int:
+        def targetSumways(i, t):
+            if i == len(nums):
+                if t == 0:
+                    return 1
+                else:
+                    return 0
+                
+            if (i,t) in self.sumways:
+                return self.sumways[(i,t)]
+            
+            self.sumways[(i,t)] = targetSumways(i+1, t-nums[i]) + targetSumways(i+1, t+nums[i])
+            return self.sumways[(i,t)]
+        
+        return targetSumways(0,target)
+    
+arr = [1,1,1,1,1]
+s = Solution()
+print(s.findTargetSumWays(arr,3))
